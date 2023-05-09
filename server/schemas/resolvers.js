@@ -1,10 +1,12 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { Matchup, Tech } = require("../models");
+const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     me: async (parent, _, context) => {
+      console.log("I'm in the resolver");
+      console.log(context);
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("savedBooks");
       }
