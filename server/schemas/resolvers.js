@@ -6,9 +6,10 @@ const resolvers = {
   Query: {
     me: async (parent, _, context) => {
       console.log("I'm in the resolver");
-      console.log(context);
+      // console.log(context);
+      console.log(context.user);
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate("savedBooks");
+        return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
