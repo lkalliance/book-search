@@ -5,9 +5,6 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     me: async (parent, _, context) => {
-      console.log("I'm in the resolver");
-      // console.log(context);
-      console.log(context.user);
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
@@ -45,6 +42,8 @@ const resolvers = {
           { $addToSet: { savedBooks: args } },
           { new: true }
         );
+
+        console.log({ updatedUser });
 
         return updatedUser;
       }
