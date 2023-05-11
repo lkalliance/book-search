@@ -14,8 +14,11 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
+  // (LEE) Use useQuery and useMutation for graphQL ops
   const { loading, data } = useQuery(QUERY_ME);
   const [removeBook] = useMutation(REMOVE_BOOK, {
+    // (LEE) Withoug this, have to reload the window
+    // to have changes reflected on screen
     update(cache, { data: { removeBook } }) {
       try {
         cache.writeQuery({
@@ -37,10 +40,11 @@ const SavedBooks = () => {
     if (!token) {
       return false;
     }
-    console.log(bookId);
+
     removeBookId(bookId);
 
     try {
+      // (LEE) Use graphQL method to remove book
       await removeBook({
         variables: { bookId },
       });

@@ -3,10 +3,7 @@ import decode from "jwt-decode";
 
 // create a new class to instantiate for a user
 class AuthService {
-  // get user data
-  getProfile() {
-    return decode(this.getToken());
-  }
+  // (LEE) Removed "getProfile" method, no longer used.
 
   // check if user's logged in
   loggedIn() {
@@ -35,6 +32,8 @@ class AuthService {
   login(idToken) {
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
+    // (LEE) Moved the window reload elsewhere to accommodate
+    // saving bookIds to localStorage
   }
 
   logout() {

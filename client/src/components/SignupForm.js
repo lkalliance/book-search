@@ -36,11 +36,15 @@ const SignupForm = () => {
     }
 
     try {
+      // (LEE) Create new user using graphQL
       const { data } = await addUser({
         variables: { ...userFormData },
       });
 
       Auth.login(data.addUser.token);
+      // (LEE) This used to be in the Auth login routine, had to move it
+      // here for purposes of logging in (see note there)
+      window.location.assign("/");
     } catch (err) {
       console.error(err);
       setShowAlert(true);
