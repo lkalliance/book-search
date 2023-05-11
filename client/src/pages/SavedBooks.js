@@ -17,7 +17,19 @@ import { removeBookId } from "../utils/localStorage";
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
   const { loading, data } = useQuery(QUERY_ME);
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK, {
+    update(cache, { data: { removeBook } }) {
+      try {
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: removeBook },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
+
   const userData = data?.me || {};
   console.log(userData);
 
@@ -32,10 +44,9 @@ const SavedBooks = () => {
     removeBookId(bookId);
 
     try {
-      const { data } = await removeBook({
+      await removeBook({
         variables: { bookId },
       });
-      window.location.reload();
     } catch (err) {
       console.error(err);
     }

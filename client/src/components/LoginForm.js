@@ -10,9 +10,11 @@ const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-  console.log(data);
+  if (error) {
+    console.log("There was an error building the login form");
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
