@@ -24,7 +24,10 @@ const SearchBooks = () => {
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // (LEE) Use graphQL method to save book
   const [saveBook, { error }] = useMutation(SAVE_BOOK, {
+    // (LEE) Withoug this part, need a window reload to update page
+    // Now updates immediately and doesn't clear search results
     update(cache, { data: { saveBook } }) {
       try {
         cache.writeQuery({
@@ -93,10 +96,10 @@ const SearchBooks = () => {
     }
 
     try {
+      // (LEE) Use graphQL method to save book
       const { data } = await saveBook({
         variables: bookToSave,
       });
-      console.log(data);
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);

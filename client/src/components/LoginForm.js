@@ -32,11 +32,15 @@ const LoginForm = () => {
     }
 
     try {
+      // (LEE) Login procedure using graphQL
       const { data } = await login({ variables: { ...userFormData } });
+      // (LEE) Populate localStorage with user's saved books
       const { savedBooks } = data.login.user;
       const books = savedBooks.map((book) => book.bookId);
       Auth.login(data.login.token);
       saveBookIds(books);
+      // (LEE) This used to be in the Auth login routine, had to move it
+      // here to enable the saving of the bookIds to localStorage
       window.location.assign("/");
     } catch (err) {
       console.error(err);
