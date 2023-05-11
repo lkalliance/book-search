@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-
+import { saveBookIds } from "../utils/localStorage";
 import Auth from "../utils/auth";
 
 const LoginForm = () => {
@@ -33,8 +33,11 @@ const LoginForm = () => {
 
     try {
       const { data } = await login({ variables: { ...userFormData } });
-
+      const { savedBooks } = data.login.user;
+      const books = savedBooks.map((book) => book.bookId);
       Auth.login(data.login.token);
+      saveBookIds(books);
+      window.location.assign("/");
     } catch (err) {
       console.error(err);
       setShowAlert(true);
