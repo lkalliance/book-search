@@ -16,7 +16,9 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
+
+  if (error) console.log("There was an error fetching your data.");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
