@@ -97,7 +97,7 @@ const SearchBooks = () => {
 
     try {
       // (LEE) Use graphQL method to save book
-      const { data } = await saveBook({
+      await saveBook({
         variables: bookToSave,
       });
 
