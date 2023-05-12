@@ -4,7 +4,7 @@
 
 Book Search is a simple application that enables the user to search book titles using the Google Books API, and save titles to a list for their own purposes, such as a list of titles to read or a reading diary.
 
-This application exists to do this simple thing in an easy way. It has been refactored to run on the graphQL technology.
+This application exists to do this simple thing in an easy way. It has been refactored to run on the graphQL technology. You can view and use it [here](https://goog-book-search-lk.herokuapp.com).
 
 ## Table of Contents
 
